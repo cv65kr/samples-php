@@ -14,8 +14,6 @@ namespace Temporal\SampleUtils;
 use Temporal\Client\GRPC\ServiceClient;
 use Temporal\Client\WorkflowClient;
 use Temporal\Client\WorkflowClientInterface;
-use Temporal\Interceptor\SimplePipelineProvider;
-use Temporal\OpenTelemetry\Interceptor\OpenTelemetryWorkflowClientCallsInterceptor;
 
 class Command extends \Symfony\Component\Console\Command\Command
 {
@@ -44,9 +42,6 @@ class Command extends \Symfony\Component\Console\Command\Command
 
         $this->workflowClient = WorkflowClient::create(
             serviceClient: $serviceClient,
-            interceptorProvider: new SimplePipelineProvider([
-                new OpenTelemetryWorkflowClientCallsInterceptor(TracerFactory::create('interceptors-sample-client')),
-            ])
         );
     }
 

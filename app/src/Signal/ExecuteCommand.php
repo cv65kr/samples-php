@@ -26,7 +26,7 @@ class ExecuteCommand extends Command
     {
         $workflow = $this->workflowClient->newWorkflowStub(
             SignalWorkflowInterface::class,
-            WorkflowOptions::new()->withWorkflowExecutionTimeout(CarbonInterval::minute())
+            WorkflowOptions::new()
         );
 
         $output->writeln("Starting <comment>SignalWorkflow</comment>... ");
@@ -41,19 +41,9 @@ class ExecuteCommand extends Command
             )
         );
 
-        $output->writeln(sprintf("Add: <info>%s</info>", 'Antony'));
-        $workflow->addName('Antony');
-
-        $output->writeln(sprintf("Add: <info>%s</info>", 'John'));
-        $workflow->addName('John');
-
-        $output->writeln(sprintf("Add: <info>%s</info>", 'Bob'));
-        $workflow->addName('Bob');
-
-        $output->writeln('Signal exit');
-        $workflow->exit();
-
-        $output->writeln(sprintf("Result:\n<info>%s</info>", print_r($run->getResult(), true)));
+        if ((bool) random_int(0,1)) {
+            $workflow->exit();
+        }
 
         return self::SUCCESS;
     }
