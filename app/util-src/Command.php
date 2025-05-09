@@ -47,9 +47,6 @@ class Command extends \Symfony\Component\Console\Command\Command
 
         $this->workflowClient = WorkflowClient::create(
             serviceClient: $serviceClient,
-            interceptorProvider: new SimplePipelineProvider([
-                new OpenTelemetryWorkflowClientCallsInterceptor(TracerFactory::create('interceptors-sample-client')),
-            ])
         );
         $this->scheduleClient = ScheduleClient::create($serviceClient);
     }
